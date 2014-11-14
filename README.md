@@ -1,4 +1,4 @@
 jFlyingAPI
 ==========
 
-Java API to get flights information
+Java API for getting flights information
