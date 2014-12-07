@@ -1,4 +1,4 @@
-jFlyingAPI
+jStreamsAPI
 ==========
 
-Java API for getting flights information
+Java API for getting streaming information
