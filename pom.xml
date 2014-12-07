@@ -27,9 +27,9 @@
             <version>1.8.1</version>
         </dependency>
         <dependency>
-                  <groupId>com.socrata</groupId>
-                  <artifactId>soda-api-java</artifactId>
-                  <version>0.9.12</version>
-         </dependency>
+            <groupId>com.socrata</groupId>
+            <artifactId>soda-api-java</artifactId>
+            <version>0.9.12</version>
+        </dependency>
     </dependencies>
 </project>
