@@ -1,5 +1,3 @@
-src/
-
 .idea
 atlassian-ide-plugin.xml
-jFlyingAPI.iml
+jStreamsAPI.iml
