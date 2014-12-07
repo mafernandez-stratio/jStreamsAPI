@@ -1,4 +1,4 @@
 jStreamsAPI
 ==========
 
-Java API for getting streaming information soda from socrata.
+Java API for getting streaming information from public data in streaming.
