@@ -1,5 +1,7 @@
 package com.rojocarmesi.jStreamsAPI;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +26,13 @@ public class jStreamsAPI {
     public static void main(String[] args){
         logger.info("Welcome to jStreamsAPI!");
 
-        List<Map<String, Object>> NYC311ServiceRequests = getNYC331ServiceRequests();
-        LinkedHashSet<String> orderedKeys = getOrderedKeysOfNYC331ServiceRequests();
+        List<NYC311ServiceRequest> result = getNYC331ServiceRequests("unique_key", "agency");
+        System.out.println(result.get(0).getUnique_key() + " - " + result.get(0).getAgency());
 
-        System.out.println(stringResult(NYC311ServiceRequests, orderedKeys));
+        //List<Map<String, Object>> NYC311ServiceRequests = getNYC331ServiceRequests();
+        //LinkedHashSet<String> orderedKeys = getOrderedKeysOfNYC331ServiceRequests();
+
+        //System.out.println(stringResult(NYC311ServiceRequests, orderedKeys));
     }
 
     public static List<Map<String, Object>> getNYC331ServiceRequests(){
@@ -38,6 +43,25 @@ public class jStreamsAPI {
         try {
             logger.info("Getting data from NYC - 311 service");
             result = consumer.query("erm2-nwe9", soqlQuery, new GenericType<List<Map<String, Object>>>(){});
+        } catch (SodaError sodaError) {
+            logger.error("Cannot get data", sodaError);
+        } catch (InterruptedException e) {
+            logger.error("Cannot get data", e);
+        }
+        return result;
+    }
+
+    public static List<NYC311ServiceRequest> getNYC331ServiceRequests(String... columns){
+        Soda2Consumer consumer = Soda2Consumer.newConsumer("https://data.cityofnewyork.us/");
+        ArrayList<String> selectClauses = new ArrayList<>(Arrays.asList(columns));
+        SoqlQuery soqlQuery = new SoqlQueryBuilder()
+                .setSelectPhrase(selectClauses)
+                .setLimit(1)
+                .build();
+        List<NYC311ServiceRequest> result = null;
+        try {
+            logger.info("Getting data from NYC - 311 service");
+            result = consumer.query("erm2-nwe9", soqlQuery, new GenericType<List<NYC311ServiceRequest>>(){});
         } catch (SodaError sodaError) {
             logger.error("Cannot get data", sodaError);
         } catch (InterruptedException e) {
