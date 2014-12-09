@@ -26,7 +26,7 @@ public class jStreamsAPI {
     public static void main(String[] args){
         logger.info("Welcome to jStreamsAPI!");
 
-        List<NYC311ServiceRequest> requests = getNYC331ServiceRequests("unique_key", "created_date", "agency");
+        List<NYC311ServiceRequest> requests = getNYC331ServiceRequests(new String[]{});
         NYC311ServiceRequest request = requests.get(0);
 
         System.out.println(request.getUnique_key());
@@ -60,9 +60,13 @@ public class jStreamsAPI {
         ArrayList<String> selectClauses = new ArrayList<>(Arrays.asList(columns));
         SoqlQuery soqlQuery = new SoqlQueryBuilder()
                 .setSelectPhrase(selectClauses)
-                //.setWhereClause("unique_key='29443051'")
                 .setLimit(10)
                 .build();
+        if(columns.length<1){
+            soqlQuery = new SoqlQueryBuilder()
+                    .setLimit(10)
+                    .build();
+        }
         List<NYC311ServiceRequest> result = null;
         try {
             logger.info("Getting data from NYC - 311 service");
