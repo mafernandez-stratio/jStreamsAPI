@@ -23,4 +23,11 @@ public class Location {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    @Override public String toString() {
+        StringBuilder sb = new StringBuilder(System.lineSeparator());
+        sb.append(" * ").append(latitude).append(System.lineSeparator());
+        sb.append(" * ").append(longitude);
+        return sb.toString();
+    }
 }

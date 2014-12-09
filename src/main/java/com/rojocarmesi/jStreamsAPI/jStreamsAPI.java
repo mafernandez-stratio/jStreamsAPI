@@ -2,11 +2,12 @@ package com.rojocarmesi.jStreamsAPI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,27 +17,15 @@ import com.socrata.exceptions.SodaError;
 import com.socrata.model.soql.SoqlQuery;
 import com.sun.jersey.api.client.GenericType;
 
-/**
- * http://support.wan.travel/hc/en-us/articles/200191669-Wego-Flights-API
- */
 public class jStreamsAPI {
 
     static Logger logger = LoggerFactory.getLogger(jStreamsAPI.class);
 
     public static void main(String[] args){
         logger.info("Welcome to jStreamsAPI!");
-
         List<NYC311ServiceRequest> requests = getNYC331ServiceRequests(new String[]{});
-        NYC311ServiceRequest request = requests.get(0);
-
-        System.out.println(request.getUnique_key());
-        System.out.println(request.getCreated_date());
-        System.out.println(request.getAgency());
-
-        //List<Map<String, Object>> NYC311ServiceRequests = getNYC331ServiceRequests();
-        //LinkedHashSet<String> orderedKeys = getOrderedKeysOfNYC331ServiceRequests();
-
-        //System.out.println(stringResult(NYC311ServiceRequests, orderedKeys));
+        String table = generateStringTable(requests);
+        System.out.println(table);
     }
 
     public static List<Map<String, Object>> getNYC331ServiceRequests(){
@@ -81,7 +70,6 @@ public class jStreamsAPI {
 
     public static LinkedHashSet<String> getOrderedKeysOfNYC331ServiceRequests(){
         LinkedHashSet<String> keys = new LinkedHashSet<>();
-
         keys.add("unique_key");
         keys.add("created_date");
         keys.add("closed_date");
@@ -134,34 +122,292 @@ public class jStreamsAPI {
         keys.add("latitude");
         keys.add("longitude");
         keys.add("location");
-
         return keys;
     }
 
-    public static int estimateHeaderWidth(LinkedHashSet<String> keys){
-        int estimatedWidth = 2;
-        for(String key: keys){
-            estimatedWidth+=key.length()+2;
-        }
-        return estimatedWidth;
+    private static String generateStringTable(List<NYC311ServiceRequest> requests) {
+        StringBuilder sb = new StringBuilder();
+        LinkedHashMap<String, Integer> widths = calculateWidths(requests, getOrderedKeysOfNYC331ServiceRequests());
+        //StringUtils.rightPad();
+        return sb.toString();
     }
 
-    public static String stringResult(List<Map<String, Object>> result, LinkedHashSet<String> keys){
-        int size = result.size();
-        String separator = StringUtils.repeat('-', estimateHeaderWidth(keys));
-        StringBuilder sb = new StringBuilder(System.lineSeparator());
-        for(Map<String, Object> map: result){
-            sb.append(separator).append(System.lineSeparator());
-            sb.append("| ");
-            for(String key: keys){
-                sb.append(key).append(": ").append(map.get(key)).append(" |");
-            }
-            sb.append(System.lineSeparator());
+    private static LinkedHashMap<String, Integer> calculateWidths(List<NYC311ServiceRequest> requests,
+            LinkedHashSet<String> columnNames) {
+        LinkedHashMap<String, Integer> widths = new LinkedHashMap<>();
+        for(String columnName: columnNames){
+            widths.put(columnName, columnName.length());
         }
-        sb.append(separator);
-        sb.append("Size: ").append(size);
-        sb.append(System.lineSeparator());
-        return sb.toString();
+        for(NYC311ServiceRequest request: requests){
+            int length;
+            String key;
+            Iterator<String> iter = columnNames.iterator();
+            length = String.valueOf(request.getUnique_key()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getCreated_date()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getClosed_date()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getAgency()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getAgency_name()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getComplaint_type()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getDescriptor()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getLocation_type()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getIncident_zip()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getIncident_address()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getStreet_name()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getCross_street_1()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getCross_street_2()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getIntersection_street_1()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getIntersection_street_2()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getAddress_type()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getCity()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getLandmark()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getFacility_type()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getStatus()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getDue_date()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getResolution_action_updated_date()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getCommunity_board()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getBorough()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getX_coordinate_state_plane()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getY_coordinate_state_plane()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getPark_facility_name()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getPark_borough()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_name()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_number()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_region()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_code()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_phone_number()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_address()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_city()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_state()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_zip()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_not_found()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getSchool_or_citywide_complaint()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getVehicle_type()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getTaxi_company_borough()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getTaxi_pick_up_location()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getBridge_highway_name()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getBridge_highway_direction()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getRoad_ramp()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getBridge_highway_segment()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getGarage_lot_name()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getFerry_direction()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getFerry_terminal_name()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getLatitude()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getLongitude()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+            length = String.valueOf(request.getLocation()).length();
+            key = iter.next();
+            if(length > widths.get(key)){
+                widths.put(key, length);
+            }
+        }
+        return widths;
+    }
+
+    public String getCreateTableQueryForCrossdata(){
+        return null;
     }
 
 }

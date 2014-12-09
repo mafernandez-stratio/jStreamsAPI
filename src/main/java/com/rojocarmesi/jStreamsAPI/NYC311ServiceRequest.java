@@ -475,4 +475,66 @@ public class NYC311ServiceRequest {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    @Override public String toString() {
+        String separator = "-------------------------------------------";
+        StringBuilder sb = new StringBuilder(System.lineSeparator());
+        sb.append(separator).append(System.lineSeparator());
+        sb.append(System.lineSeparator());
+        return System.lineSeparator() + separator +
+                System.lineSeparator() + "unique_key=" + unique_key +
+                System.lineSeparator() + "created_date=" + created_date +
+                System.lineSeparator() + "closed_date=" + closed_date +
+                System.lineSeparator() + "agency='" + agency + '\'' +
+                System.lineSeparator() + "agency_name='" + agency_name + '\'' +
+                System.lineSeparator() + "complaint_type='" + complaint_type + '\'' +
+                System.lineSeparator() + "descriptor='" + descriptor + '\'' +
+                System.lineSeparator() + "location_type='" + location_type + '\'' +
+                System.lineSeparator() + "incident_zip=" + incident_zip +
+                System.lineSeparator() + "incident_address='" + incident_address + '\'' +
+                System.lineSeparator() + "street_name='" + street_name + '\'' +
+                System.lineSeparator() + "cross_street_1='" + cross_street_1 + '\'' +
+                System.lineSeparator() + "cross_street_2='" + cross_street_2 + '\'' +
+                System.lineSeparator() + "intersection_street_1='" + intersection_street_1 + '\'' +
+                System.lineSeparator() + "intersection_street_2='" + intersection_street_2 + '\'' +
+                System.lineSeparator() + "address_type='" + address_type + '\'' +
+                System.lineSeparator() + "city='" + city + '\'' +
+                System.lineSeparator() + "landmark='" + landmark + '\'' +
+                System.lineSeparator() + "facility_type='" + facility_type + '\'' +
+                System.lineSeparator() + "status='" + status + '\'' +
+                System.lineSeparator() + "due_date=" + due_date +
+                System.lineSeparator() + "resolution_action_updated_date=" + resolution_action_updated_date +
+                System.lineSeparator() + "community_board='" + community_board + '\'' +
+                System.lineSeparator() + "borough='" + borough + '\'' +
+                System.lineSeparator() + "x_coordinate_state_plane=" + x_coordinate_state_plane +
+                System.lineSeparator() + "y_coordinate_state_plane=" + y_coordinate_state_plane +
+                System.lineSeparator() + "park_facility_name='" + park_facility_name + '\'' +
+                System.lineSeparator() + "park_borough='" + park_borough + '\'' +
+                System.lineSeparator() + "school_name='" + school_name + '\'' +
+                System.lineSeparator() + "school_number='" + school_number + '\'' +
+                System.lineSeparator() + "school_region='" + school_region + '\'' +
+                System.lineSeparator() + "school_code='" + school_code + '\'' +
+                System.lineSeparator() + "school_phone_number='" + school_phone_number + '\'' +
+                System.lineSeparator() + "school_address='" + school_address + '\'' +
+                System.lineSeparator() + "school_city='" + school_city + '\'' +
+                System.lineSeparator() + "school_state='" + school_state + '\'' +
+                System.lineSeparator() + "school_zip='" + school_zip + '\'' +
+                System.lineSeparator() + "school_not_found='" + school_not_found + '\'' +
+                System.lineSeparator() + "school_or_citywide_complaint='" + school_or_citywide_complaint + '\'' +
+                System.lineSeparator() + "vehicle_type='" + vehicle_type + '\'' +
+                System.lineSeparator() + "taxi_company_borough='" + taxi_company_borough + '\'' +
+                System.lineSeparator() + "taxi_pick_up_location='" + taxi_pick_up_location + '\'' +
+                System.lineSeparator() + "bridge_highway_name='" + bridge_highway_name + '\'' +
+                System.lineSeparator() + "bridge_highway_direction='" + bridge_highway_direction + '\'' +
+                System.lineSeparator() + "road_ramp='" + road_ramp + '\'' +
+                System.lineSeparator() + "bridge_highway_segment='" + bridge_highway_segment + '\'' +
+                System.lineSeparator() + "garage_lot_name='" + garage_lot_name + '\'' +
+                System.lineSeparator() + "ferry_direction='" + ferry_direction + '\'' +
+                System.lineSeparator() + "ferry_terminal_name='" + ferry_terminal_name + '\'' +
+                System.lineSeparator() + "latitude=" + latitude +
+                System.lineSeparator() + "longitude=" + longitude +
+                System.lineSeparator() + "location=" + location +
+                System.lineSeparator() + separator +
+                System.lineSeparator();
+    }
 }
