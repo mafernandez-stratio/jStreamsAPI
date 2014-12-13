@@ -1,11 +1,20 @@
 package com.rojocarmesi.jStreamsAPI;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class NYC311ServiceRequest {
+
+    static Logger logger = LoggerFactory.getLogger(NYC311ServiceRequest.class);
+
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     private int unique_key;
     private Date created_date;
@@ -38,16 +47,24 @@ public class NYC311ServiceRequest {
         return created_date;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setCreated_date(String created_date) {
+        try {
+            this.created_date = DATE_FORMAT.parse(created_date);
+        } catch (Exception ex) {
+            this.created_date = null;
+        }
     }
 
     public Date getClosed_date() {
         return closed_date;
     }
 
-    public void setClosed_date(Date closed_date) {
-        this.closed_date = closed_date;
+    public void setClosed_date(String closed_date) {
+        try {
+            this.closed_date = DATE_FORMAT.parse(closed_date);
+        } catch (Exception ex) {
+            this.closed_date = null;
+        }
     }
 
     public String getAgency() {
@@ -122,32 +139,48 @@ public class NYC311ServiceRequest {
         return x_coordinate_state_plane;
     }
 
-    public void setX_coordinate_state_plane(float x_coordinate_state_plane) {
-        this.x_coordinate_state_plane = x_coordinate_state_plane;
+    public void setX_coordinate_state_plane(String x_coordinate_state_plane) {
+        try {
+            this.x_coordinate_state_plane = Float.parseFloat(x_coordinate_state_plane);
+        } catch (Exception ex) {
+            this.x_coordinate_state_plane = 0;
+        }
     }
 
     public float getY_coordinate_state_plane() {
         return y_coordinate_state_plane;
     }
 
-    public void setY_coordinate_state_plane(float y_coordinate_state_plane) {
-        this.y_coordinate_state_plane = y_coordinate_state_plane;
+    public void setY_coordinate_state_plane(String y_coordinate_state_plane) {
+        try {
+            this.y_coordinate_state_plane = Float.parseFloat(y_coordinate_state_plane);
+        } catch (Exception ex) {
+            this.y_coordinate_state_plane = 0;
+        }
     }
 
     public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLatitude(String latitude) {
+        try {
+            this.latitude = Double.parseDouble(latitude);
+        } catch (Exception ex) {
+            this.latitude = 0;
+        }
     }
 
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setLongitude(String longitude) {
+        try {
+            this.longitude = Double.parseDouble(longitude);
+        } catch (Exception ex) {
+            this.longitude = 0;
+        }
     }
 
     public static LinkedHashMap<String, Class> getOrderedKeysOfNYC331ServiceRequests(){

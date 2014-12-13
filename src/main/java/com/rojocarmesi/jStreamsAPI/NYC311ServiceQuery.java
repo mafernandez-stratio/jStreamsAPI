@@ -1,5 +1,6 @@
 package com.rojocarmesi.jStreamsAPI;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -16,34 +17,45 @@ import com.socrata.exceptions.SodaError;
 import com.socrata.model.soql.SoqlQuery;
 import com.sun.jersey.api.client.GenericType;
 
-public class jStreamsAPI {
+public class NYC311ServiceQuery {
 
-    static Logger logger = LoggerFactory.getLogger(jStreamsAPI.class);
+    static Logger logger = LoggerFactory.getLogger(NYC311ServiceQuery.class);
 
-    public static void main(String[] args){
+    public List<NYC311ServiceRequest> createAndShowQuery(int limit, Date date){
         logger.info("Welcome to jStreamsAPI!");
         List<NYC311ServiceRequest> requests = getNYC331ServiceRequests(
                 NYC311ServiceRequest.getOrderedKeysOfNYC331ServiceRequests().keySet(),
-                0);
+                date,
+                limit);
         String table = generateStringTable(requests);
         System.out.println(table);
         System.out.println("Size = " + requests.size());
         String createTable = createTableQueryForCrossdata("nycRequests", "cassandra_prod");
         System.out.println(createTable);
+        return requests;
     }
 
-    public static List<NYC311ServiceRequest> getNYC331ServiceRequests(Set<String> columns, int limit){
+    private List<NYC311ServiceRequest> getNYC331ServiceRequests(Set<String> columns, Date date, int limit){
         Soda2Consumer consumer = Soda2Consumer.newConsumer("https://data.cityofnewyork.us/");
 
         LinkedList<String> cols = new LinkedList<>(columns);
 
         SoqlQueryBuilder queryBuilder = new SoqlQueryBuilder();
+
         if(!columns.isEmpty()){
             queryBuilder = queryBuilder.setSelectPhrase(cols);
         }
+
+        if(date != null){
+            String createdDate = NYC311ServiceRequest.DATE_FORMAT.format(date);
+            //queryBuilder = queryBuilder.setWhereClause("created_date > '2012-09-06T13:21:45'");
+            queryBuilder = queryBuilder.setWhereClause("created_date > '" + createdDate + "'");
+        }
+
         if(limit>0){
             queryBuilder = queryBuilder.setLimit(limit);
         }
+
         SoqlQuery soqlQuery = queryBuilder.build();
 
         List<NYC311ServiceRequest> result = null;
@@ -58,7 +70,7 @@ public class jStreamsAPI {
         return result;
     }
 
-    private static String generateStringTable(List<NYC311ServiceRequest> requests) {
+    private String generateStringTable(List<NYC311ServiceRequest> requests) {
         StringBuilder sb = new StringBuilder();
         Set<String> keys = NYC311ServiceRequest.getOrderedKeysOfNYC331ServiceRequests().keySet();
         LinkedHashMap<String, Integer> widths = calculateWidths(
@@ -149,7 +161,7 @@ public class jStreamsAPI {
         return sb.toString();
     }
 
-    private static LinkedHashMap<String, Integer> calculateWidths(List<NYC311ServiceRequest> requests,
+    private LinkedHashMap<String, Integer> calculateWidths(List<NYC311ServiceRequest> requests,
             Set<String> columnNames) {
         LinkedHashMap<String, Integer> widths = new LinkedHashMap<>();
         for(String columnName: columnNames){
@@ -238,7 +250,7 @@ public class jStreamsAPI {
         return widths;
     }
 
-    public static String createTableQueryForCrossdata(String tableName, String cluster){
+    public String createTableQueryForCrossdata(String tableName, String cluster){
         StringBuilder sb = new StringBuilder("CREATE TABLE ");
         sb.append(tableName).append(" ON CLUSTER ").append(cluster).append(" (");
         LinkedHashMap<String, Class> columns = NYC311ServiceRequest.getOrderedKeysOfNYC331ServiceRequests();
@@ -257,7 +269,7 @@ public class jStreamsAPI {
         return sb.toString();
     }
 
-    private static String convertJavaTypeToCrossdataType(Class clazz) {
+    private String convertJavaTypeToCrossdataType(Class clazz) {
         String type = "Text";
         if(clazz.getCanonicalName().equalsIgnoreCase(Integer.class.getCanonicalName())) {
             type = "Int";
