@@ -1,6 +1,9 @@
 package com.rojocarmesi.jStreamsAPI;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 public class NYC311ServiceRequest {
 
@@ -8,54 +11,17 @@ public class NYC311ServiceRequest {
     private Date created_date;
     private Date closed_date;
     private String agency;
-    private String agency_name;
     private String complaint_type;
     private String descriptor;
-    private String location_type;
     private int incident_zip;
     private String incident_address;
-    private String street_name;
-    private String cross_street_1;
-    private String cross_street_2;
-    private String intersection_street_1;
-    private String intersection_street_2;
-    private String address_type;
     private String city;
-    private String landmark;
-    private String facility_type;
     private String status;
-    private Date due_date;
-    private Date resolution_action_updated_date;
-    private String community_board;
     private String borough;
     private float x_coordinate_state_plane;
     private float y_coordinate_state_plane;
-    private String park_facility_name;
-    private String park_borough;
-    private String school_name;
-    private String school_number;
-    private String school_region;
-    private String school_code;
-    private String school_phone_number;
-    private String school_address;
-    private String school_city;
-    private String school_state;
-    private String school_zip;
-    private String school_not_found;
-    private String school_or_citywide_complaint;
-    private String vehicle_type;
-    private String taxi_company_borough;
-    private String taxi_pick_up_location;
-    private String bridge_highway_name;
-    private String bridge_highway_direction;
-    private String road_ramp;
-    private String bridge_highway_segment;
-    private String garage_lot_name;
-    private String ferry_direction;
-    private String ferry_terminal_name;
     private double latitude;
     private double longitude;
-    private Location location;
 
     public NYC311ServiceRequest() {
     }
@@ -92,14 +58,6 @@ public class NYC311ServiceRequest {
         this.agency = agency;
     }
 
-    public String getAgency_name() {
-        return agency_name;
-    }
-
-    public void setAgency_name(String agency_name) {
-        this.agency_name = agency_name;
-    }
-
     public String getComplaint_type() {
         return complaint_type;
     }
@@ -114,14 +72,6 @@ public class NYC311ServiceRequest {
 
     public void setDescriptor(String descriptor) {
         this.descriptor = descriptor;
-    }
-
-    public String getLocation_type() {
-        return location_type;
-    }
-
-    public void setLocation_type(String location_type) {
-        this.location_type = location_type;
     }
 
     public int getIncident_zip() {
@@ -140,54 +90,6 @@ public class NYC311ServiceRequest {
         this.incident_address = incident_address;
     }
 
-    public String getStreet_name() {
-        return street_name;
-    }
-
-    public void setStreet_name(String street_name) {
-        this.street_name = street_name;
-    }
-
-    public String getCross_street_1() {
-        return cross_street_1;
-    }
-
-    public void setCross_street_1(String cross_street_1) {
-        this.cross_street_1 = cross_street_1;
-    }
-
-    public String getCross_street_2() {
-        return cross_street_2;
-    }
-
-    public void setCross_street_2(String cross_street_2) {
-        this.cross_street_2 = cross_street_2;
-    }
-
-    public String getIntersection_street_1() {
-        return intersection_street_1;
-    }
-
-    public void setIntersection_street_1(String intersection_street_1) {
-        this.intersection_street_1 = intersection_street_1;
-    }
-
-    public String getIntersection_street_2() {
-        return intersection_street_2;
-    }
-
-    public void setIntersection_street_2(String intersection_street_2) {
-        this.intersection_street_2 = intersection_street_2;
-    }
-
-    public String getAddress_type() {
-        return address_type;
-    }
-
-    public void setAddress_type(String address_type) {
-        this.address_type = address_type;
-    }
-
     public String getCity() {
         return city;
     }
@@ -196,52 +98,12 @@ public class NYC311ServiceRequest {
         this.city = city;
     }
 
-    public String getLandmark() {
-        return landmark;
-    }
-
-    public void setLandmark(String landmark) {
-        this.landmark = landmark;
-    }
-
-    public String getFacility_type() {
-        return facility_type;
-    }
-
-    public void setFacility_type(String facility_type) {
-        this.facility_type = facility_type;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Date getDue_date() {
-        return due_date;
-    }
-
-    public void setDue_date(Date due_date) {
-        this.due_date = due_date;
-    }
-
-    public Date getResolution_action_updated_date() {
-        return resolution_action_updated_date;
-    }
-
-    public void setResolution_action_updated_date(Date resolution_action_updated_date) {
-        this.resolution_action_updated_date = resolution_action_updated_date;
-    }
-
-    public String getCommunity_board() {
-        return community_board;
-    }
-
-    public void setCommunity_board(String community_board) {
-        this.community_board = community_board;
     }
 
     public String getBorough() {
@@ -268,190 +130,6 @@ public class NYC311ServiceRequest {
         this.y_coordinate_state_plane = y_coordinate_state_plane;
     }
 
-    public String getPark_facility_name() {
-        return park_facility_name;
-    }
-
-    public void setPark_facility_name(String park_facility_name) {
-        this.park_facility_name = park_facility_name;
-    }
-
-    public String getPark_borough() {
-        return park_borough;
-    }
-
-    public void setPark_borough(String park_borough) {
-        this.park_borough = park_borough;
-    }
-
-    public String getSchool_name() {
-        return school_name;
-    }
-
-    public void setSchool_name(String school_name) {
-        this.school_name = school_name;
-    }
-
-    public String getSchool_number() {
-        return school_number;
-    }
-
-    public void setSchool_number(String school_number) {
-        this.school_number = school_number;
-    }
-
-    public String getSchool_region() {
-        return school_region;
-    }
-
-    public void setSchool_region(String school_region) {
-        this.school_region = school_region;
-    }
-
-    public String getSchool_code() {
-        return school_code;
-    }
-
-    public void setSchool_code(String school_code) {
-        this.school_code = school_code;
-    }
-
-    public String getSchool_phone_number() {
-        return school_phone_number;
-    }
-
-    public void setSchool_phone_number(String school_phone_number) {
-        this.school_phone_number = school_phone_number;
-    }
-
-    public String getSchool_address() {
-        return school_address;
-    }
-
-    public void setSchool_address(String school_address) {
-        this.school_address = school_address;
-    }
-
-    public String getSchool_city() {
-        return school_city;
-    }
-
-    public void setSchool_city(String school_city) {
-        this.school_city = school_city;
-    }
-
-    public String getSchool_state() {
-        return school_state;
-    }
-
-    public void setSchool_state(String school_state) {
-        this.school_state = school_state;
-    }
-
-    public String getSchool_zip() {
-        return school_zip;
-    }
-
-    public void setSchool_zip(String school_zip) {
-        this.school_zip = school_zip;
-    }
-
-    public String getSchool_not_found() {
-        return school_not_found;
-    }
-
-    public void setSchool_not_found(String school_not_found) {
-        this.school_not_found = school_not_found;
-    }
-
-    public String getSchool_or_citywide_complaint() {
-        return school_or_citywide_complaint;
-    }
-
-    public void setSchool_or_citywide_complaint(String school_or_citywide_complaint) {
-        this.school_or_citywide_complaint = school_or_citywide_complaint;
-    }
-
-    public String getVehicle_type() {
-        return vehicle_type;
-    }
-
-    public void setVehicle_type(String vehicle_type) {
-        this.vehicle_type = vehicle_type;
-    }
-
-    public String getTaxi_company_borough() {
-        return taxi_company_borough;
-    }
-
-    public void setTaxi_company_borough(String taxi_company_borough) {
-        this.taxi_company_borough = taxi_company_borough;
-    }
-
-    public String getTaxi_pick_up_location() {
-        return taxi_pick_up_location;
-    }
-
-    public void setTaxi_pick_up_location(String taxi_pick_up_location) {
-        this.taxi_pick_up_location = taxi_pick_up_location;
-    }
-
-    public String getBridge_highway_name() {
-        return bridge_highway_name;
-    }
-
-    public void setBridge_highway_name(String bridge_highway_name) {
-        this.bridge_highway_name = bridge_highway_name;
-    }
-
-    public String getBridge_highway_direction() {
-        return bridge_highway_direction;
-    }
-
-    public void setBridge_highway_direction(String bridge_highway_direction) {
-        this.bridge_highway_direction = bridge_highway_direction;
-    }
-
-    public String getRoad_ramp() {
-        return road_ramp;
-    }
-
-    public void setRoad_ramp(String road_ramp) {
-        this.road_ramp = road_ramp;
-    }
-
-    public String getBridge_highway_segment() {
-        return bridge_highway_segment;
-    }
-
-    public void setBridge_highway_segment(String bridge_highway_segment) {
-        this.bridge_highway_segment = bridge_highway_segment;
-    }
-
-    public String getGarage_lot_name() {
-        return garage_lot_name;
-    }
-
-    public void setGarage_lot_name(String garage_lot_name) {
-        this.garage_lot_name = garage_lot_name;
-    }
-
-    public String getFerry_direction() {
-        return ferry_direction;
-    }
-
-    public void setFerry_direction(String ferry_direction) {
-        this.ferry_direction = ferry_direction;
-    }
-
-    public String getFerry_terminal_name() {
-        return ferry_terminal_name;
-    }
-
-    public void setFerry_terminal_name(String ferry_terminal_name) {
-        this.ferry_terminal_name = ferry_terminal_name;
-    }
-
     public double getLatitude() {
         return latitude;
     }
@@ -468,12 +146,28 @@ public class NYC311ServiceRequest {
         this.longitude = longitude;
     }
 
-    public Location getLocation() {
-        return location;
+    public static LinkedHashMap<String, Class> getOrderedKeysOfNYC331ServiceRequests(){
+        LinkedHashMap<String, Class> columns = new LinkedHashMap<>();
+        columns.put("unique_key", Integer.class);
+        columns.put("created_date", Date.class);
+        columns.put("closed_date", Date.class);
+        columns.put("agency", String.class);
+        columns.put("complaint_type", String.class);
+        columns.put("descriptor", String.class);
+        columns.put("incident_zip", Integer.class);
+        columns.put("incident_address", String.class);
+        columns.put("city", String.class);
+        columns.put("status", String.class);
+        columns.put("borough", String.class);
+        columns.put("x_coordinate_state_plane", Float.class);
+        columns.put("y_coordinate_state_plane", Float.class);
+        columns.put("latitude", Double.class);
+        columns.put("longitude", Double.class);
+        return columns;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public static LinkedList<String> getPrimaryKey(){
+        return new LinkedList<>(Collections.singleton("unique_key"));
     }
 
     @Override public String toString() {
@@ -486,54 +180,17 @@ public class NYC311ServiceRequest {
                 System.lineSeparator() + "created_date=" + created_date +
                 System.lineSeparator() + "closed_date=" + closed_date +
                 System.lineSeparator() + "agency='" + agency + '\'' +
-                System.lineSeparator() + "agency_name='" + agency_name + '\'' +
                 System.lineSeparator() + "complaint_type='" + complaint_type + '\'' +
                 System.lineSeparator() + "descriptor='" + descriptor + '\'' +
-                System.lineSeparator() + "location_type='" + location_type + '\'' +
                 System.lineSeparator() + "incident_zip=" + incident_zip +
                 System.lineSeparator() + "incident_address='" + incident_address + '\'' +
-                System.lineSeparator() + "street_name='" + street_name + '\'' +
-                System.lineSeparator() + "cross_street_1='" + cross_street_1 + '\'' +
-                System.lineSeparator() + "cross_street_2='" + cross_street_2 + '\'' +
-                System.lineSeparator() + "intersection_street_1='" + intersection_street_1 + '\'' +
-                System.lineSeparator() + "intersection_street_2='" + intersection_street_2 + '\'' +
-                System.lineSeparator() + "address_type='" + address_type + '\'' +
                 System.lineSeparator() + "city='" + city + '\'' +
-                System.lineSeparator() + "landmark='" + landmark + '\'' +
-                System.lineSeparator() + "facility_type='" + facility_type + '\'' +
                 System.lineSeparator() + "status='" + status + '\'' +
-                System.lineSeparator() + "due_date=" + due_date +
-                System.lineSeparator() + "resolution_action_updated_date=" + resolution_action_updated_date +
-                System.lineSeparator() + "community_board='" + community_board + '\'' +
                 System.lineSeparator() + "borough='" + borough + '\'' +
                 System.lineSeparator() + "x_coordinate_state_plane=" + x_coordinate_state_plane +
                 System.lineSeparator() + "y_coordinate_state_plane=" + y_coordinate_state_plane +
-                System.lineSeparator() + "park_facility_name='" + park_facility_name + '\'' +
-                System.lineSeparator() + "park_borough='" + park_borough + '\'' +
-                System.lineSeparator() + "school_name='" + school_name + '\'' +
-                System.lineSeparator() + "school_number='" + school_number + '\'' +
-                System.lineSeparator() + "school_region='" + school_region + '\'' +
-                System.lineSeparator() + "school_code='" + school_code + '\'' +
-                System.lineSeparator() + "school_phone_number='" + school_phone_number + '\'' +
-                System.lineSeparator() + "school_address='" + school_address + '\'' +
-                System.lineSeparator() + "school_city='" + school_city + '\'' +
-                System.lineSeparator() + "school_state='" + school_state + '\'' +
-                System.lineSeparator() + "school_zip='" + school_zip + '\'' +
-                System.lineSeparator() + "school_not_found='" + school_not_found + '\'' +
-                System.lineSeparator() + "school_or_citywide_complaint='" + school_or_citywide_complaint + '\'' +
-                System.lineSeparator() + "vehicle_type='" + vehicle_type + '\'' +
-                System.lineSeparator() + "taxi_company_borough='" + taxi_company_borough + '\'' +
-                System.lineSeparator() + "taxi_pick_up_location='" + taxi_pick_up_location + '\'' +
-                System.lineSeparator() + "bridge_highway_name='" + bridge_highway_name + '\'' +
-                System.lineSeparator() + "bridge_highway_direction='" + bridge_highway_direction + '\'' +
-                System.lineSeparator() + "road_ramp='" + road_ramp + '\'' +
-                System.lineSeparator() + "bridge_highway_segment='" + bridge_highway_segment + '\'' +
-                System.lineSeparator() + "garage_lot_name='" + garage_lot_name + '\'' +
-                System.lineSeparator() + "ferry_direction='" + ferry_direction + '\'' +
-                System.lineSeparator() + "ferry_terminal_name='" + ferry_terminal_name + '\'' +
                 System.lineSeparator() + "latitude=" + latitude +
                 System.lineSeparator() + "longitude=" + longitude +
-                System.lineSeparator() + "location=" + location +
                 System.lineSeparator() + separator +
                 System.lineSeparator();
     }
