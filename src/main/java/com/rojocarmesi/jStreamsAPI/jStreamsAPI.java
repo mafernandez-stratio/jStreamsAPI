@@ -24,7 +24,7 @@ public class jStreamsAPI {
         logger.info("Welcome to jStreamsAPI!");
         List<NYC311ServiceRequest> requests = getNYC331ServiceRequests(
                 NYC311ServiceRequest.getOrderedKeysOfNYC331ServiceRequests().keySet(),
-                100);
+                0);
         String table = generateStringTable(requests);
         System.out.println(table);
         System.out.println("Size = " + requests.size());

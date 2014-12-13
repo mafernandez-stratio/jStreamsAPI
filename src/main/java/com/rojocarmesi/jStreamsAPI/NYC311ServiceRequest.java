@@ -78,8 +78,12 @@ public class NYC311ServiceRequest {
         return incident_zip;
     }
 
-    public void setIncident_zip(int incident_zip) {
-        this.incident_zip = incident_zip;
+    public void setIncident_zip(String incident_zip) {
+        try {
+            this.incident_zip = Integer.parseInt(incident_zip);
+        } catch (Exception ex) {
+            this.incident_zip = 0;
+        }
     }
 
     public String getIncident_address() {
