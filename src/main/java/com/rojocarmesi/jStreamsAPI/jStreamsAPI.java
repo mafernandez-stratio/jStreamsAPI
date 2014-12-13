@@ -24,9 +24,10 @@ public class jStreamsAPI {
         logger.info("Welcome to jStreamsAPI!");
         List<NYC311ServiceRequest> requests = getNYC331ServiceRequests(
                 NYC311ServiceRequest.getOrderedKeysOfNYC331ServiceRequests().keySet(),
-                2);
+                100);
         String table = generateStringTable(requests);
         System.out.println(table);
+        System.out.println("Size = " + requests.size());
         String createTable = createTableQueryForCrossdata("nycRequests", "cassandra_prod");
         System.out.println(createTable);
     }
@@ -72,7 +73,8 @@ public class jStreamsAPI {
         }
         totalWidth+=2;
         sb.append(" |").append(System.lineSeparator());
-        sb.append(StringUtils.repeat("-", totalWidth)).append(System.lineSeparator());
+        String separator = StringUtils.repeat("-", totalWidth);
+        sb.append(separator).append(System.lineSeparator());
         // Body
         for(NYC311ServiceRequest request: requests){
             sb.append("| ").append(StringUtils.rightPad(
@@ -87,27 +89,48 @@ public class jStreamsAPI {
             sb.append("| ").append(StringUtils.rightPad(
                     request.getAgency(),
                     widths.get("agency"))).append(" ");
+            if(request.getAgency() == null){
+                sb.append(StringUtils.repeat(" ", widths.get("agency")-"null".length()));
+            }
             sb.append("| ").append(StringUtils.rightPad(
                     request.getComplaint_type(),
                     widths.get("complaint_type"))).append(" ");
+            if(request.getComplaint_type() == null){
+                sb.append(StringUtils.repeat(" ", widths.get("complaint_type")-"null".length()));
+            }
             sb.append("| ").append(StringUtils.rightPad(
                     request.getDescriptor(),
                     widths.get("descriptor"))).append(" ");
+            if(request.getDescriptor() == null){
+                sb.append(StringUtils.repeat(" ", widths.get("descriptor")-"null".length()));
+            }
             sb.append("| ").append(StringUtils.rightPad(
                     String.valueOf(request.getIncident_zip()),
                     widths.get("incident_zip"))).append(" ");
             sb.append("| ").append(StringUtils.rightPad(
                     request.getIncident_address(),
                     widths.get("incident_address"))).append(" ");
+            if(request.getIncident_address() == null){
+                sb.append(StringUtils.repeat(" ", widths.get("incident_address")-"null".length()));
+            }
             sb.append("| ").append(StringUtils.rightPad(
                     request.getCity(),
                     widths.get("city"))).append(" ");
+            if(request.getCity() == null){
+                sb.append(StringUtils.repeat(" ", widths.get("city")-"null".length()));
+            }
             sb.append("| ").append(StringUtils.rightPad(
                     request.getStatus(),
                     widths.get("status"))).append(" ");
+            if(request.getStatus() == null){
+                sb.append(StringUtils.repeat(" ", widths.get("status")-"null".length()));
+            }
             sb.append("| ").append(StringUtils.rightPad(
                     request.getBorough(),
                     widths.get("borough"))).append(" ");
+            if(request.getBorough() == null){
+                sb.append(StringUtils.repeat(" ", widths.get("borough")-"null".length()));
+            }
             sb.append("| ").append(StringUtils.rightPad(
                     String.valueOf(request.getX_coordinate_state_plane()),
                     widths.get("x_coordinate_state_plane"))).append(" ");
@@ -122,6 +145,7 @@ public class jStreamsAPI {
                     widths.get("longitude"))).append(" ");
             sb.append(" |").append(System.lineSeparator());
         }
+        sb.append(separator);
         return sb.toString();
     }
 
